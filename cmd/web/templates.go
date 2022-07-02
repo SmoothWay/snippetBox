@@ -5,11 +5,13 @@ import (
 	"text/template"
 	"time"
 
+	"github.com/SmoothWay/snippetBox/pkg/forms"
 	"github.com/SmoothWay/snippetBox/pkg/models"
 )
 
 type templateData struct {
 	CurrentYear int
+	Form        *forms.Form
 	Snippet     *models.Snippet
 	Snippets    []*models.Snippet
 }
