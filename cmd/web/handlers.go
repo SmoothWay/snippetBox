@@ -22,22 +22,19 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 func (app *application) showSnippet(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(r.URL.Query().Get(":id"))
 	if err != nil || id < 1 {
-		app.infoLog.Println("err & id")
-		app.infoLog.Println(err)
 		app.notFound(w)
 		return
 	}
 	s, err := app.snippets.Get(id)
 	if err == models.ErrNoRecord {
-		app.infoLog.Println("errnorecord")
-		app.infoLog.Println(err)
 		app.notFound(w)
 		return
 	} else if err != nil {
 		app.serverError(w, err)
 		return
 	}
-	app.render(w, r, "show-page.html", &templateData{Snippet: s})
+	app.render(w, r, "show-page.html", &templateData{
+		Snippet: s})
 }
 
 func (app *application) createSnippetForm(w http.ResponseWriter, r *http.Request) {
@@ -69,6 +66,8 @@ func (app *application) createSnippet(w http.ResponseWriter, r *http.Request) {
 		app.serverError(w, err)
 		return
 	}
+
+	app.session.Put(r, "flash", "Snippet successfullt created!")
 	http.Redirect(w, r, fmt.Sprintf("/snippet/%d", id), http.StatusSeeOther)
 
 }
