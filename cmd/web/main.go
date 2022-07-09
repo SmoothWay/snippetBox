@@ -52,7 +52,7 @@ func main() {
 
 	defer db.Close()
 
-	tempalteCache, err := newTemplateCache("./ui/html/")
+	templateCache, err := newTemplateCache("./ui/html/")
 	if err != nil {
 		errorLog.Fatal(err)
 	}
@@ -66,7 +66,7 @@ func main() {
 		infoLog:       infoLog,
 		session:       session,
 		snippets:      &postgresql.SnippetModel{DB: db},
-		templateCache: tempalteCache,
+		templateCache: templateCache,
 		users:         &postgresql.UserModel{DB: db},
 	}
 
