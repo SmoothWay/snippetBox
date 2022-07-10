@@ -3,7 +3,6 @@ package postgresql
 import (
 	"database/sql"
 	"fmt"
-	"log"
 	"time"
 
 	"github.com/SmoothWay/snippetBox/pkg/models"
@@ -20,7 +19,6 @@ func (m *SnippetModel) Insert(title, content, expires string) (int, error) {
 
 	err := m.DB.QueryRow(stmt, title, content).Scan(&id)
 	if err != nil {
-		log.Println(err)
 		return 0, err
 	}
 

@@ -8,10 +8,15 @@ import (
 	"time"
 )
 
+func (app *application) authentiacatedUser(r *http.Request) int {
+	return app.session.GetInt(r, "userID")
+}
+
 func (app *application) addDefaultData(td *templateData, r *http.Request) *templateData {
 	if td == nil {
 		td = &templateData{}
 	}
+	td.AuthenticatedUser = app.authentiacatedUser(r)
 	td.CurrentYear = time.Now().Year()
 	td.Flash = app.session.PopString(r, "flash")
 	return td

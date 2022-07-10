@@ -2,7 +2,6 @@ package postgresql
 
 import (
 	"database/sql"
-	"log"
 	"strings"
 
 	"github.com/SmoothWay/snippetBox/pkg/models"
@@ -44,7 +43,6 @@ func (m *UserModel) Authenticate(email, password string) (int, error) {
 	} else if err != nil {
 		return 0, err
 	}
-	log.Println(password)
 	err = bcrypt.CompareHashAndPassword(hashedPassword, []byte(password))
 	if err == bcrypt.ErrMismatchedHashAndPassword {
 		return 0, models.ErrInvalidCredentials
