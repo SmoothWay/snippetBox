@@ -22,7 +22,7 @@ func noSurf(next http.Handler) http.Handler {
 func (app *application) authenticate(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		exists := app.session.Exists(r, "userID")
-		if exists {
+		if !exists {
 			next.ServeHTTP(w, r)
 			return
 		}
@@ -44,6 +44,7 @@ func (app *application) requireAuthenticatedUser(next http.Handler) http.Handler
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if app.authentiacatedUser(r) == nil {
 			http.Redirect(w, r, "/user/login", http.StatusFound)
+			return
 		}
 		next.ServeHTTP(w, r)
 	})

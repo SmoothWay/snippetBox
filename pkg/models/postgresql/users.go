@@ -56,7 +56,8 @@ func (m *UserModel) Get(id int) (*models.User, error) {
 	s := &models.User{}
 
 	stmt := `SELECT id, name, email, created FROM users WHERE id = $1`
-	err := m.DB.QueryRow(stmt, id).Scan(&s.ID, &s.Name, &s.Eamil, &s.Created)
+	err := m.DB.QueryRow(stmt, id).Scan(&s.ID, &s.Name, &s.Email, &s.Created)
+
 	if err == sql.ErrNoRows {
 		return nil, models.ErrNoRecord
 	} else if err != nil {

@@ -119,7 +119,6 @@ func (app *application) loginUser(w http.ResponseWriter, r *http.Request) {
 		app.clientError(w, http.StatusBadRequest)
 		return
 	}
-
 	form := forms.New(r.PostForm)
 	id, err := app.users.Authenticate(form.Get("email"), form.Get("password"))
 	if err == models.ErrInvalidCredentials {

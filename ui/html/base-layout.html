@@ -20,18 +20,18 @@
         <div>
         <a href="/">Home</a>
         {{if .AuthenticatedUser}}
-        <a href="/snippet/create">Create snippet</a>
+            <a href="/snippet/create">Create snippet</a>
         {{end}}
         </div> 
         <div>
         {{if .AuthenticatedUser}}
-        <form action="user/logout" method="POST">
-            <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
-            <button>Logout ({{.AutenticatedUser.Name}}</button>
-        </form>
+            <form action="/user/logout" method="POST">
+                <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
+                <button>Logout ({{.AuthenticatedUser.Name}})</button>
+            </form>
         {{else}}
-          <a href="/user/signup">Signup</a>
-          <a href="/user/login">Login</a>
+             <a href="/user/signup">Signup</a>
+           <a href="/user/login">Login</a>
        {{end}}
     </div>
     </nav>
