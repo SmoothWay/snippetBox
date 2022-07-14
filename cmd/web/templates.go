@@ -10,11 +10,11 @@ import (
 )
 
 type templateData struct {
-	AuthenticatedUser int
 	CurrentYear       int
 	CSRFToken         string
 	Flash             string
 	Form              *forms.Form
+	AuthenticatedUser *models.User
 	Snippet           *models.Snippet
 	Snippets          []*models.Snippet
 }
@@ -28,7 +28,6 @@ var functions = template.FuncMap{
 }
 
 func newTemplateCache(dir string) (map[string]*template.Template, error) {
-
 	cache := map[string]*template.Template{}
 
 	pages, err := filepath.Glob(filepath.Join(dir, "*-page.html"))

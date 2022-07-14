@@ -16,13 +16,9 @@ import (
 	_ "github.com/lib/pq"
 )
 
-const (
-	host     = "localhost"
-	port     = 5432
-	user     = "weblocalhost"
-	password = "insaneEra99"
-	dbname   = "snippetbox"
-)
+type contextKey string
+
+var contextKeyUser = contextKey("user")
 
 type application struct {
 	errorLog      *log.Logger
@@ -32,6 +28,14 @@ type application struct {
 	templateCache map[string]*template.Template
 	users         *postgresql.UserModel
 }
+
+const (
+	host     = "localhost"
+	port     = 5432
+	user     = "weblocalhost"
+	password = "insaneEra99"
+	dbname   = "snippetbox"
+)
 
 func main() {
 	addr := flag.String("addr", ":4000", "HTTP network address")
@@ -88,7 +92,6 @@ func main() {
 	infoLog.Printf("Starting server on %s\n", *addr)
 	err = srv.ListenAndServeTLS("./tls/cert.pem", "./tls/key.pem")
 	errorLog.Fatal(err)
-
 }
 
 func openDB(dsn string) (*sql.DB, error) {
