@@ -17,8 +17,13 @@ This is the final code from version 1 of the [Let's Go e-book by Alex Edwards](h
 
 ### How to run?
 
-##### `go run ./cmd/web/`
+
+```shell
+go run ./cmd/web/
+```
 to start the local web server with HTTPS on port 4000 ([https://localhost:4000](https://localhost:4000)).  
 Or you can: 
-##### `go run ./cmd/web/ --addr=:$PORT`  
+```shell
+go run ./cmd/web/ --addr=:$PORT
+```  
 and specify `$PORT` to what port you want to start the server.
